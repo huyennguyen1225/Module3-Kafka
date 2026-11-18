@@ -1,0 +1,70 @@
+Câu 1:
+
+(.venv) PS D:\bk-fintech-realtime-platform-starter> docker compose exec kafka `
+>>   /opt/kafka/bin/kafka-topics.sh `
+>>   --bootstrap-server kafka:29092 `
+>>   --list
+__consumer_offsets
+customer-activity-events
+lab3-activity-events
+lab3-order-events
+lab6-activity-events
+lab6-order-events
+order-events
+
+(.venv) PS D:\bk-fintech-realtime-platform-starter> docker compose exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --describe --topic order-events
+Topic: order-events     TopicId: 3aWm6DnxSfGpbPkKHglJlg PartitionCount: 3       ReplicationFactor: 1    Configs: min.insync.replicas=1
+        Topic: order-events     Partition: 0    Leader: 1       Replicas: 1     Isr: 1  Elr:    LastKnownElr: 
+        Topic: order-events     Partition: 1    Leader: 1       Replicas: 1     Isr: 1  Elr:    LastKnownElr: 
+        Topic: order-events     Partition: 2    Leader: 1       Replicas: 1     Isr: 1  Elr:    LastKnownElr: 
+(.venv) PS D:\bk-fintech-realtime-platform-starter> docker compose exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:29092 --describe --topic customer-activity-events
+Topic: customer-activity-events TopicId: ZtRV9e89TBOmCQMbGClFsQ PartitionCount: 3       ReplicationFactor: 1    Configs: min.insync.replicas=1
+        Topic: customer-activity-events Partition: 0    Leader: 1       Replicas: 1     Isr: 1  Elr:    LastKnownElr: 
+        Topic: customer-activity-events Partition: 1    Leader: 1       Replicas: 1     Isr: 1  Elr:    LastKnownElr: 
+        Topic: customer-activity-events Partition: 2    Leader: 1       Replicas: 1     Isr: 1  Elr:    LastKnownElr: 
+
+Câu 2:
+
+Partition:1     Offset:0        ORD-1001        {"event_id":"evt-order-001","event_type":"OrderCreated","event_version":1,"
+Partition:1     Offset:1        ORD-1001        {"event_id":"evt-order-001","event_type":"OrderCreated","event_version":1,"event_time":"2026-11-02T10:00:05Z","source":"order-simulator","order_id":"ORD-1001","customer_id":"CUS-001","items":[{"product_id":"P-101","quantity":2,"unit_price":150000}],"total_amount":300000,"currency":"VND"}
+Partition:1     Offset:2        ORD-1001        {"event_id":"evt-order-001","event_type":"OrderCreated","event_version":1,"event_time":"2026-11-02T10:00:05Z","source":"order-simulator","order_id":"ORD-1001","customer_id":"CUS-001","items":[{"product_id":"P-101","quantity":2,"unit_price":150000}],"total_amount":300000,"currency":"VND"}
+Partition:0     Offset:0        ORD-1002        {"event_id":"evt-order-002","event_type":"OrderCreated","event_version":1,"event_time":"2026-11-02T10:00:07Z","source":"order-simulator","order_id":"ORD-1002","customer_id":"CUS-002","items":[{"product_id":"P-102","quantity":1,"unit_price":99000}],"total_amount":99000,"currency":"VND"}
+Partition:0     Offset:1        ORD-1002        {"event_id":"evt-order-002","event_type":"OrderCreated","event_version":1,"event_time":"2026-11-02T10:00:07Z","source":"order-simulator","order_id":"ORD-1002","customer_id":"CUS-002","items":[{"product_id":"P-102","quantity":1,"unit_price":99000}],"total_amount":99000,"currency":"VND"}
+
+
+Partition:1     Offset:0        CUS-001 {"event_id":"evt-view-001","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:08Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-101","device_type":"mobile"}
+Partition:1     Offset:1        CUS-001 {"event_id":"evt-view-002","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:10Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-102","device_type":"mobile"}
+Partition:1     Offset:2        CUS-001 {"event_id":"evt-view-003","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:14Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-103","device_type":"mobile"}
+Partition:1     Offset:3        CUS-001 {"event_id":"evt-view-001","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:08Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-101","device_type":"mobile"}
+Partition:1     Offset:4        CUS-001 {"event_id":"evt-view-002","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:10Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-102","device_type":"mobile"}
+Partition:1     Offset:5        CUS-001 {"event_id":"evt-view-003","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:14Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-103","device_type":"mobile"}
+
+Câu 3:
+
+Partition:1     Offset:2        ORD-1001        {"event_id":"evt-order-001","event_type":"OrderCreated","event_version":1,"event_time":"2026-11-02T10:00:05Z","source":"order-simulator","order_id":"ORD-1001","customer_id":"CUS-001","items":[{"product_id":"P-101","quantity":2,"unit_price":150000}],"total_amount":300000,"currency":"VND"}
+Partition:0     Offset:1        ORD-1002        {"event_id":"evt-order-002","event_type":"OrderCreated","event_version":1,"event_time":"2026-11-02T10:00:07Z","source":"order-simulator","order_id":"ORD-1002","customer_id":"CUS-002","items":[{"product_id":"P-102","quantity":1,"unit_price":99000}],"total_amount":99000,"currency":"VND"}
+
+Partition:1     Offset:0        CUS-001 {"event_id":"evt-view-001","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:08Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-101","device_type":"mobile"}
+Partition:1     Offset:1        CUS-001 {"event_id":"evt-view-002","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:10Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-102","device_type":"mobile"}
+Partition:1     Offset:2        CUS-001 {"event_id":"evt-view-003","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:14Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-103","device_type":"mobile"}
+Partition:1     Offset:3        CUS-001 {"event_id":"evt-view-001","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:08Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-101","device_type":"mobile"}
+Partition:1     Offset:4        CUS-001 {"event_id":"evt-view-002","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:10Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-102","device_type":"mobile"}
+Partition:1     Offset:5        CUS-001 {"event_id":"evt-view-003","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:14Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-103","device_type":"mobile"}
+
+Câu 4: 
+
+Partition:1     Offset:2        ORD-1001        {"event_id":"evt-order-001","event_type":"OrderCreated","event_version":1,"event_time":"2026-11-02T10:00:05Z","source":"order-simulator","order_id":"ORD-1001","customer_id":"CUS-001","items":[{"product_id":"P-101","quantity":2,"unit_price":150000}],"total_amount":300000,"currency":"VND"}
+Partition:0     Offset:1        ORD-1002        {"event_id":"evt-order-002","event_type":"OrderCreated","event_version":1,"event_time":"2026-11-02T10:00:07Z","source":"order-simulator","order_id":"ORD-1002","customer_id":"CUS-002","items":[{"product_id":"P-102","quantity":1,"unit_price":99000}],"total_amount":99000,"currency":"VND"}
+
+Partition:1     Offset:0        CUS-001 {"event_id":"evt-view-001","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:08Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-101","device_type":"mobile"}
+Partition:1     Offset:1        CUS-001 {"event_id":"evt-view-002","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:10Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-102","device_type":"mobile"}
+Partition:1     Offset:2        CUS-001 {"event_id":"evt-view-003","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:14Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-103","device_type":"mobile"}
+Partition:1     Offset:3        CUS-001 {"event_id":"evt-view-001","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:08Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-101","device_type":"mobile"}
+Partition:1     Offset:4        CUS-001 {"event_id":"evt-view-002","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:10Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-102","device_type":"mobile"}
+Partition:1     Offset:5        CUS-001 {"event_id":"evt-view-003","event_type":"ProductViewed","event_version":1,"event_time":"2026-11-02T10:00:14Z","source":"activity-simulator","customer_id":"CUS-001","session_id":"SES-001","product_id":"P-103","device_type":"mobile"}
+
+Câu 5:
+
+Ordering: Kafka đảm bảo thứ tự message trong cùng một partition thông qua offset. Các message có cùng key CUS-001 được phân phối vào cùng partition (với partitioner mặc định), giúp duy trì thứ tự sự kiện của khách hàng.
+Khả năng song song (Parallelism): Kafka chia topic thành nhiều partition, cho phép nhiều consumer trong cùng một consumer group xử lý dữ liệu đồng thời.
+Replay: Kafka hỗ trợ đọc lại dữ liệu cũ bằng cách sử dụng consumer group mới với auto.offset.reset=earliest hoặc reset offset của group hiện tại.
